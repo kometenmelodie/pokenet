@@ -10,6 +10,22 @@ python = "^3.11"
 polars = "^0.18.15"
 pyvis = "^0.3.2"
 
+[tool.ruff]
+select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # isort
+    "I001"
+]
+line-length = 90
+target-version = "py311"
+
+[tool.black]
+line-length = 90
+target-version = ["py311"]
 
 [build-system]
 requires = ["poetry-core"]
