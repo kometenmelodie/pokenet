@@ -24,7 +24,7 @@ from pokenet import PokeNet
 
 n = PokeNet()
 n.create_network(pokemon_generation=3)
-n.save_network(overwrite=True)
+n.save_network()
 ```
 
 Note: `create_network()` has a parameter `pokemon_pics_path` which allows to
@@ -35,4 +35,4 @@ repository. Fortunately, there exist a lot of image datasets on the internet
 # Resources
 
 The creation of the node data wouldn't have been possible without the 
-work of [veekun](https://github.com/veekun/pokedex/blob/master/pokedex/).
+work of [veekun](https://github.com/veekun/pokedex/blob/master/).
