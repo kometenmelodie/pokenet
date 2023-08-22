@@ -23,6 +23,9 @@ select = [
 line-length = 90
 target-version = "py311"
 
+[tool.ruff.isort]
+known-first-party = ["pokenet"]
+
 [tool.black]
 line-length = 90
 target-version = ["py311"]
