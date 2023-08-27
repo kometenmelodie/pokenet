@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pokenet"
 version = "0.1.0"
-description = ""
+description = "Pokemon evolution chains pictured as network."
 authors = ["Jakob <88966745+kometenmelodie@users.noreply.github.com>"]
 readme = "README.md"
 
@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 polars = "^0.18.15"
 pyvis = "^0.3.2"
+typer = {extras = ["all"], version = "^0.9.0"}
 
 [tool.ruff]
 select = [
