@@ -1,10 +1,15 @@
 from pathlib import Path
+from typing import Union
 
 import polars as pl
+import typer
 from pyvis.network import Network
+from typing_extensions import Annotated
 
 
 class PokeNet:
+    """Create a network graph of Pokémon evolution chains."""
+
     def __init__(self, node_data_path: Path = Path(".data/node_data.csv")):
         self.node_data = pl.read_csv(node_data_path)
         self.net = None
@@ -63,3 +68,34 @@ class PokeNet:
         else:
             self.net.save_graph(str(path))
             print(f"Saved network to {path}.")
+
+
+def _cli_network(
+    node_data_path: Annotated[
+        str, typer.Argument(help="Path to node data file.")
+    ] = ".data/node_data.csv",
+    output_path: Annotated[
+        str, typer.Argument(help="Network output file.")
+    ] = "graph.html",
+    pokemon_generation: Annotated[
+        Union[int, None], typer.Option(help="Plot a specific Pokémon generation.")
+    ] = None,
+    pokemon_pics_path: Annotated[
+        Union[str, None],
+        typer.Option(help="Path of Pokémon pictures which are used as nodes."),
+    ] = None,
+    overwrite: Annotated[
+        bool, typer.Option(help="Whether to overwrite existing file.")
+    ] = False,
+):
+    """CLI to create a network graph of Pokémon evolution chains."""
+
+    network = PokeNet(node_data_path=Path(node_data_path))
+    network.create_network(
+        pokemon_generation=pokemon_generation, pokemon_pics_path=pokemon_pics_path
+    )
+    network.save_network(path=Path(output_path), overwrite=overwrite)
+
+
+def cli_network():
+    typer.run(_cli_network)

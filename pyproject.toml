@@ -11,6 +11,9 @@ polars = "^0.18.15"
 pyvis = "^0.3.2"
 typer = {extras = ["all"], version = "^0.9.0"}
 
+[tool.poetry.scripts]
+pokenet = "pokenet.core:cli_network"
+
 [tool.ruff]
 select = [
     # Pyflakes
