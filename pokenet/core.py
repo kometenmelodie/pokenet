@@ -8,7 +8,10 @@ from typing_extensions import Annotated
 
 
 class PokeNet:
-    """Create a network graph of Pokémon evolution chains."""
+    """Create a network graph of Pokémon evolution chains.
+
+    :param node_data_path: Path to node data file.
+    """
 
     def __init__(self, node_data_path: Path = Path(".data/node_data.csv")):
         self.node_data = pl.read_csv(node_data_path)
@@ -17,6 +20,11 @@ class PokeNet:
     def create_network(
         self, pokemon_generation: int | None = 2, pokemon_pics_path: str | None = None
     ):
+        """Initialize and draw the network graph.
+
+        :param pokemon_generation: Plot a specific Pokémon generation.
+        :param pokemon_pics_path: Path to Pokémon pictures which are used as nodes.
+        """
         # initialize network
         net = Network(
             height="900px", bgcolor="black", font_color="white", filter_menu=False
@@ -60,14 +68,22 @@ class PokeNet:
 
         self.net = net
 
-    def save_network(self, path: Path = Path("graph.html"), overwrite: bool = False):
-        if path.exists() and not overwrite:
+    def save_network(
+        self, output_path: Path = Path("graph.html"), overwrite: bool = False
+    ):
+        """Save the network graph to a html file.
+
+        :param output_path: Path to save the network graph to.
+        :param overwrite: Whether to overwrite existing file.
+        """
+        if output_path.exists() and not overwrite:
             raise FileExistsError(
-                f"File {path} already exists." "Set overwrite=True to overwrite it."
+                f"File {output_path} already exists."
+                "Set overwrite=True to overwrite it."
             )
         else:
-            self.net.save_graph(str(path))
-            print(f"Saved network to {path}.")
+            self.net.save_graph(str(output_path))
+            print(f"Saved network to {output_path}.")
 
 
 def _cli_network(
@@ -82,7 +98,7 @@ def _cli_network(
     ] = None,
     pokemon_pics_path: Annotated[
         Union[str, None],
-        typer.Option(help="Path of Pokémon pictures which are used as nodes."),
+        typer.Option(help="Path to Pokémon pictures which are used as nodes."),
     ] = None,
     overwrite: Annotated[
         bool, typer.Option(help="Whether to overwrite existing file.")
@@ -94,7 +110,7 @@ def _cli_network(
     network.create_network(
         pokemon_generation=pokemon_generation, pokemon_pics_path=pokemon_pics_path
     )
-    network.save_network(path=Path(output_path), overwrite=overwrite)
+    network.save_network(output_path=Path(output_path), overwrite=overwrite)
 
 
 def cli_network():
