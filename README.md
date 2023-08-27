@@ -16,6 +16,11 @@ poetry install
 
 ## Usage
 
+Currently, there are two options to generate a network. Either call the main
+class `PokeNet` from the command line or from a `Python` script.
+
+### Python 🐍
+
 To generate the above network (without Pokémon pictures as nodes), create a 
 new `Python` script with the following content.
 
@@ -31,6 +36,20 @@ Note: `create_network()` has a parameter `pokemon_pics_path` which allows to
 add Pokémon pictures as nodes. However, the pictures are not provided in this
 repository. Fortunately, there exist a lot of image datasets on the internet
 (for example this one [here](https://www.kaggle.com/datasets/kvpratama/pokemon-images-dataset?resource=download)).
+
+### Command Line Interface 👨‍💻
+
+In order to retrieve the same network as above, simply type:
+
+```shell
+pokenet --pokemon-generation 3
+```
+
+For more information on the CLI:
+    
+```shell
+pokenet --help
+```
 
 # Resources
 
